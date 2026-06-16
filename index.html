@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moisés Acevedo · Arquitecto de Sistemas IA & Operaciones</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a08;
+    --bg2: #111110;
+    --bg3: #181817;
+    --gold: #c9a84c;
+    --gold-light: #e4c97e;
+    --gold-dim: #7a5f2a;
+    --cream: #f0e8d5;
+    --cream-dim: #a89880;
+    --white: #faf8f4;
+    --accent: #4a7c59;
+    --accent-light: #6aab7d;
+    --border: rgba(201,168,76,0.15);
+    --border-strong: rgba(201,168,76,0.35);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,8,0.9);
+    backdrop-filter: blur(16px);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--cream-dim);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    opacity: 0.7;
+  }
+
+  .nav-links a:hover { color: var(--gold-light); opacity: 1; }
+  .nav-links a.active {
+    color: var(--gold-light);
+    opacity: 1;
+    font-weight: 500;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 3rem;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 6vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 1.9vw, 1.6rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--cream);
+    max-width: 500px;
+    margin-bottom: 3rem;
+  }
+
+  .hero-value strong {
+    font-style: normal;
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.4s;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    width: fit-content;
+  }
+
+  .hero-cta:hover {
+    background: var(--gold);
+    color: var(--bg);
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-graphic {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 40%, rgba(201,168,76,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 30% 80%, rgba(74,124,89,0.08) 0%, transparent 50%);
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    width: 380px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat-card {
+    background: var(--bg);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: background 0.3s;
+  }
+
+  .stat-card:hover { background: var(--bg3); }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  .diagonal-line {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
+    transform: rotate(8deg);
+    transform-origin: center;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    color: var(--border-strong);
+    line-height: 1;
+    user-select: none;
+  }
+
+  .section-info { border-left: 1px solid var(--border); padding-left: 2rem; }
+
+  .section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  /* ── PROPUESTA ── */
+  #propuesta {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .propuesta-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .propuesta-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--cream);
+  }
+
+  .propuesta-text strong {
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+
+  .proceso-steps { display: flex; flex-direction: column; gap: 0; }
+
+  .paso {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .paso:last-child { border-bottom: none; }
+
+  .paso-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--gold-dim);
+    flex-shrink: 0;
+    width: 2rem;
+    line-height: 1;
+  }
+
+  .paso-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .paso-desc {
+    font-size: 0.72rem;
+    color: var(--cream-dim);
+    line-height: 1.6;
+  }
+
+  /* ── SERVICIOS ── */
+  #servicios { background: var(--bg); }
+
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .servicio-card {
+    background: var(--bg);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+    cursor: default;
+  }
+
+  .servicio-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--gold);
+    transition: height 0.4s ease;
+  }
+
+  .servicio-card:hover { background: var(--bg3); }
+  .servicio-card:hover::before { height: 100%; }
+
+  .servicio-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.1);
+    position: absolute;
+    top: 1rem; right: 2rem;
+    line-height: 1;
+    user-select: none;
+    transition: color 0.4s;
+  }
+
+  .servicio-card:hover .servicio-num { color: rgba(201,168,76,0.2); }
+
+  .servicio-badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .servicio-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 2vw, 1.9rem);
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .servicio-desc {
+    font-size: 0.7rem;
+    color: var(--cream-dim);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .servicio-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+    border-left: 1px solid var(--border);
+  }
+
+  .servicio-detail {
+    font-size: 0.65rem;
+    color: var(--cream-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .servicio-detail::before {
+    content: '→ ';
+    color: var(--gold-dim);
+  }
+
+  .servicio-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .servicio-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--gold-light);
+  }
+
+  .servicio-time {
+    font-size: 0.6rem;
+    color: var(--cream-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ── CASOS DE ÉXITO ── */
+  #caso {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .caso-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: start;
+    margin-bottom: 6rem;
+    padding-bottom: 6rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .caso-wrapper:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .caso-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  /* Logo container */
+  .caso-logo-wrap {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .caso-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1) sepia(1) saturate(0.3) brightness(1.1);
+    opacity: 0.85;
+    transition: opacity 0.3s;
+  }
+
+  .caso-logo:hover { opacity: 1; }
+
+  .caso-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .caso-empresa {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+
+  .caso-industria {
+    font-size: 0.7rem;
+    color: var(--cream-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .caso-resultados {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .resultado {
+    background: var(--bg);
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .resultado-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .resultado-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  /* KPI screenshots strip */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .kpi-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    filter: brightness(0.9) saturate(0.8);
+    transition: all 0.4s;
+    cursor: zoom-in;
+  }
+
+  .kpi-img:hover {
+    filter: brightness(1) saturate(1);
+    border-color: var(--gold-dim);
+    transform: scale(1.02);
+  }
+
+  .caso-right {}
+
+  .caso-section { margin-bottom: 2.5rem; }
+
+  .caso-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .caso-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .caso-list li {
+    font-size: 0.72rem;
+    color: var(--cream-dim);
+    line-height: 1.6;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .caso-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--gold-dim);
+    font-size: 0.6rem;
+  }
+
+  .caso-resultado-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.6;
+    padding: 1.5rem;
+    border-left: 2px solid var(--gold);
+    background: rgba(201,168,76,0.04);
+  }
+
+  /* TikTok embed style */
+  .tiktok-proof {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    background: rgba(201,168,76,0.03);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .tiktok-icon {
+    width: 32px;
+    height: 32px;
+    background: #010101;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+    color: var(--gold-light);
+  }
+
+  .tiktok-text {
+    flex: 1;
+  }
+
+  .tiktok-handle {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 0.2rem;
+  }
+
+  .tiktok-desc {
+    font-size: 0.65rem;
+    color: var(--cream-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .tiktok-link {
+    font-size: 0.6rem;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--gold-dim);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .tiktok-link:hover { color: var(--gold-light); }
+
+  /* Client logos strip */
+  .client-logos-section {
+    background: var(--bg);
+    padding: 4rem 5rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .client-logos-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .client-logos-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 3rem 4rem;
+  }
+
+  .client-name-badge {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+  }
+
+  .client-name-badge:hover { opacity: 1; }
+
+  .client-name-badge.highlight {
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* ── VENTAJAS ── */
+  #ventajas { background: var(--bg); }
+
+  .ventajas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .ventaja {
+    padding: 2.5rem 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .ventaja:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-4px);
+  }
+
+  .ventaja-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    color: var(--gold-light);
+  }
+
+  .ventaja-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .ventaja-desc {
+    font-size: 0.7rem;
+    color: var(--cream-dim);
+    line-height: 1.75;
+  }
+
+  /* ── HERRAMIENTAS ── */
+  #herramientas {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .tool-group {
+    background: var(--bg);
+    padding: 2rem 1.75rem;
+  }
+
+  .tool-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tool-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tool-list li {
+    font-size: 0.67rem;
+    color: var(--cream-dim);
+    line-height: 1.4;
+  }
+
+  /* ── CLIENTE IDEAL ── */
+  #cliente {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+
+  .cliente-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .cliente-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cliente-circle {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .cliente-circle::before {
+    content: '';
+    position: absolute;
+    inset: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+  }
+
+  .cliente-circle::after {
+    content: '';
+    position: absolute;
+    inset: 40px;
+    border-radius: 50%;
+    border: 1px dashed var(--border);
+  }
+
+  .cliente-center {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cliente-center-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+
+  .cliente-center-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  .cliente-criteria { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .criterio {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .criterio-check {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .criterio-text {
+    font-size: 0.72rem;
+    color: var(--cream-dim);
+    line-height: 1.65;
+  }
+
+  .criterio-text strong {
+    color: var(--white);
+    font-weight: 400;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  /* ── CONTACTO ── */
+  #contacto {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+
+  .contacto-inner {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contacto-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+
+  .contacto-headline em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .contacto-sub {
+    font-size: 0.75rem;
+    color: var(--cream-dim);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    max-width: 460px;
+  }
+
+  .contacto-cta-big {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 2.5rem;
+    background: var(--gold);
+    color: var(--bg);
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+
+  .contacto-cta-big:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .contacto-links { display: flex; flex-direction: column; gap: 0; }
+
+  .contacto-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: padding-left 0.3s;
+  }
+
+  .contacto-link:hover { padding-left: 0.5rem; }
+
+  .link-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .contacto-link span:last-child {
+    font-size: 0.78rem;
+    color: var(--cream);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg);
+  }
+
+  .footer-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .footer-copy {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--cream-dim);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    section { padding: 5rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .propuesta-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .caso-wrapper { grid-template-columns: 1fr; gap: 3rem; }
+    .ventajas-grid { grid-template-columns: 1fr 1fr; }
+    .tools-grid { grid-template-columns: 1fr 1fr; }
+    .cliente-grid { grid-template-columns: 1fr; }
+    .cliente-visual { display: none; }
+    .contacto-inner { grid-template-columns: 1fr; }
+    .servicios-grid { grid-template-columns: 1fr; }
+    nav { padding: 1.25rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+  }
+
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.5rem; }
+    .hero-left { padding: 6rem 1.5rem 3rem; }
+    .nav-links { display: none; }
+    .ventajas-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: 1fr 1fr; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  /* ── PRESENCIA EN MEDIOS ── */
+  #medios {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .medios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .medios-left {}
+
+  .medios-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+  }
+
+  .medios-headline strong {
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+
+  .medios-body {
+    font-size: 0.72rem;
+    color: var(--cream-dim);
+    line-height: 1.85;
+    margin-bottom: 2.5rem;
+  }
+
+  .medios-stat-row {
+    display: flex;
+    gap: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .medios-stat {
+    text-align: left;
+  }
+
+  .medios-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .medios-stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  .medios-right {
+    position: relative;
+  }
+
+  .medios-img-wrap {
+    position: relative;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .medios-img-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, transparent 60%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .medios-img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.75) saturate(0.6);
+    transition: filter 0.5s;
+  }
+
+  .medios-img-wrap:hover .medios-img {
+    filter: brightness(0.85) saturate(0.8);
+  }
+
+  .medios-img-caption {
+    padding: 1rem 1.25rem;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  .medios-logos-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .medio-badge {
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--border);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    background: var(--bg2);
+    white-space: nowrap;
+  }
+
+  /* ── DEALERS AUTOMOTRICES ── */
+  #dealers {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+
+  .dealers-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 1.8vw, 1.55rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--cream);
+    max-width: 780px;
+    margin-bottom: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dealers-intro strong {
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+
+  .dealers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .dealer-card {
+    background: var(--bg);
+    padding: 0;
+    overflow: hidden;
+    transition: background 0.4s;
+    position: relative;
+  }
+
+  .dealer-card:hover { background: var(--bg3); }
+
+  .dealer-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .dealer-card:hover::before { transform: scaleX(1); }
+
+  .dealer-img-wrap {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dealer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.55) saturate(0.4);
+    transition: filter 0.5s, transform 0.5s;
+  }
+
+  .dealer-card:hover .dealer-img {
+    filter: brightness(0.7) saturate(0.6);
+    transform: scale(1.04);
+  }
+
+  .dealer-logo-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--bg3) 0%, var(--bg2) 100%);
+  }
+
+  .dealer-logo-fallback span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--gold-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .dealer-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,8,0.8) 0%, transparent 60%);
+  }
+
+  .dealer-tag-over {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(10,10,8,0.85);
+    border: 1px solid var(--border-strong);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .dealer-body {
+    padding: 2rem 2rem 2.5rem;
+  }
+
+  .dealer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+
+  .dealer-location {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dealer-desc {
+    font-size: 0.7rem;
+    color: var(--cream-dim);
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  .dealer-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .dealer-tag {
+    padding: 0.2rem 0.65rem;
+    border: 1px solid var(--border);
+    font-size: 0.57rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  /* Indalo Water logo actualizado */
+  .caso-logo-indalo {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  @media (max-width: 1024px) {
+    .medios-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .dealers-grid { grid-template-columns: 1fr; }
+    .medios-stat-row { gap: 1.5rem; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade { opacity: 1; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .animate-fade.js-loaded { opacity: 0; transform: translateY(20px); }
+  .animate-fade.js-loaded.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Lex Consulting</span>
+  <ul class="nav-links">
+    <li><a href="#propuesta">Propuesta</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#caso">Casos</a></li>
+    <li><a href="#medios">Medios</a></li>
+    <li><a href="#dealers">Automotriz</a></li>
+    <li><a href="#ventajas">Ventajas</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Arquitecto de Sistemas IA & Operaciones · Latam · USA · España</p>
+    <h1 class="hero-name">Moisés<br><em>Acevedo</em></h1>
+    <p class="hero-title">Sistemas IA · Automatización · Operaciones</p>
+    <p class="hero-value">
+      Convierto operaciones caóticas en <strong>infraestructura medible</strong> — y construyo
+      el <strong>software de IA propio</strong> que la potencia: agentes empresariales, automatización
+      end-to-end y BI.
+    </p>
+    <a href="#contacto" class="hero-cta">Agendar llamada gratuita →</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-graphic"></div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="stat-number">$100k</span>
+        <span class="stat-label">Generado año 1</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">90</span>
+        <span class="stat-label">KPIs en tiempo real</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">4</span>
+        <span class="stat-label">Países operando</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">3</span>
+        <span class="stat-label">Productos IA propios</span>
+      </div>
+    </div>
+    <div class="diagonal-line"></div>
+  </div>
+</section>
+
+<!-- CLIENT LOGOS STRIP -->
+<div class="client-logos-section">
+  <p class="client-logos-label">Trabajado con · Clientes reales · USA · Venezuela · España · Panamá</p>
+  <div class="client-logos-grid">
+    <span class="client-name-badge highlight">Indalo Water</span>
+    <span class="client-name-badge highlight">Megret Solutions</span>
+    <span class="client-name-badge highlight">Impact Heroes</span>
+    <span class="client-name-badge">Kevin David</span>
+    <span class="client-name-badge">Jeff Lerner</span>
+    <span class="client-name-badge">Jake Nicks</span>
+    <span class="client-name-badge">Paul Getter</span>
+    <span class="client-name-badge">Daven Michaels</span>
+    <span class="client-name-badge">James Nielson</span>
+    <span class="client-name-badge">Rigoberto Acosta</span>
+    <span class="client-name-badge">Mark Bowness</span>
+    <span class="client-name-badge">Tracey Walker</span>
+    <span class="client-name-badge">Trent Dyrsmid</span>
+  </div>
+</div>
+
+<!-- PROPUESTA DE VALOR -->
+<section id="propuesta">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div class="section-info">
+      <p class="section-tag">Lo que realmente hago</p>
+      <h2 class="section-title">El problema<br>que resuelvo</h2>
+    </div>
+  </div>
+  <div class="propuesta-grid">
+    <div>
+      <p class="propuesta-text">
+        La mayoría de empresas de 10 a 100 empleados tienen el mismo problema:<br><br>
+        <strong>Crecieron en ventas, pero no en estructura.</strong><br><br>
+        El fundador sigue resolviendo todo personalmente. Los reportes se hacen en Excel manual. No hay visibilidad real de qué está pasando en el negocio. Los procesos existen en la cabeza de las personas, no en un sistema.<br><br>
+        Cuando eso no se corrige, el crecimiento se convierte en caos — y el caos frena el crecimiento.<br><br>
+        Construyo la infraestructura operativa que convierte ese caos en un sistema que funciona sin que tú estés en todo.
+      </p>
+    </div>
+    <div class="proceso-steps">
+      <div class="paso">
+        <span class="paso-num">1</span>
+        <div class="paso-content">
+          <p class="paso-title">Diagnóstico de operaciones</p>
+          <p class="paso-desc">Mapeo cada proceso del negocio. Identifico dónde se pierde tiempo, dinero y talento. Te muestro con datos lo que hoy no puedes ver.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <span class="paso-num">2</span>
+        <div class="paso-content">
+          <p class="paso-title">Diseño del sistema</p>
+          <p class="paso-desc">Diseño la arquitectura operativa: qué automatizar, qué delegar, qué medir. Todo basado en tu industria y tamaño real, no en plantillas genéricas.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <span class="paso-num">3</span>
+        <div class="paso-content">
+          <p class="paso-title">Implementación y documentación</p>
+          <p class="paso-desc">Monto el sistema, capacito a tu equipo y documento todo bajo estándares ISO 9001. Cuando termino, el sistema es tuyo — no depende de mí.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <span class="paso-num">4</span>
+        <div class="paso-content">
+          <p class="paso-title">Dashboard y métricas en vivo</p>
+          <p class="paso-desc">Tu negocio queda visible en un dashboard de KPIs en tiempo real. Tomas decisiones con datos, no con intuición ni reportes de ayer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div class="section-info">
+      <p class="section-tag">Qué construyo para ti</p>
+      <h2 class="section-title">Servicios<br>disponibles</h2>
+    </div>
+  </div>
+  <div class="servicios-grid">
+
+    <div class="servicio-card animate-fade">
+      <span class="servicio-num">01</span>
+      <span class="servicio-badge">Operaciones</span>
+      <h3 class="servicio-name">Auditoría &<br>Diagnóstico Operativo</h3>
+      <p class="servicio-desc">Análisis profundo de tus procesos actuales. Identifico los cuellos de botella, el trabajo redundante y los sistemas que te están costando dinero sin que lo sepas.</p>
+      <div class="servicio-details">
+        <span class="servicio-detail">Mapeo completo de procesos existentes</span>
+        <span class="servicio-detail">Identificación de ineficiencias y costos ocultos</span>
+        <span class="servicio-detail">Reporte ejecutivo con plan de acción priorizado</span>
+        <span class="servicio-detail">Entregable: documento + presentación para directivos</span>
+      </div>
+      <div class="servicio-footer">
+        <span class="servicio-time">5–10 días</span>
+      </div>
+    </div>
+
+    <div class="servicio-card animate-fade">
+      <span class="servicio-num">02</span>
+      <span class="servicio-badge">Sistemas</span>
+      <h3 class="servicio-name">Sistema de KPIs<br>& Business Intelligence</h3>
+      <p class="servicio-desc">Tu negocio en un dashboard en tiempo real. Todos los indicadores que importan — ventas, operaciones, equipo, finanzas — en una sola pantalla, siempre actualizada.</p>
+      <div class="servicio-details">
+        <span class="servicio-detail">Diseño de framework de KPIs específico para tu industria</span>
+        <span class="servicio-detail">Conexión de fuentes de datos (CRM, ERP, hojas, APIs)</span>
+        <span class="servicio-detail">Dashboard en Looker Studio o herramienta de tu stack</span>
+        <span class="servicio-detail">Capacitación de equipo + documentación de uso</span>
+      </div>
+      <div class="servicio-footer">
+        <span class="servicio-time">2–4 semanas</span>
+      </div>
+    </div>
+
+    <div class="servicio-card animate-fade">
+      <span class="servicio-num">03</span>
+      <span class="servicio-badge">Automatización</span>
+      <h3 class="servicio-name">Automatización de<br>Procesos Repetitivos</h3>
+      <p class="servicio-desc">Cada proceso que tu equipo hace manualmente todos los días es tiempo perdido. Lo identifico, lo analizo y lo automatizo — sin que tengas que cambiar las herramientas que ya usas.</p>
+      <div class="servicio-details">
+        <span class="servicio-detail">Automatización de reportes, seguimientos y notificaciones</span>
+        <span class="servicio-detail">Integración entre plataformas (CRM, email, ERP, WhatsApp)</span>
+        <span class="servicio-detail">Flujos con Make.com, n8n, Zapier o Python</span>
+        <span class="servicio-detail">Reducción documentada de horas manuales por semana</span>
+      </div>
+      <div class="servicio-footer">
+        <span class="servicio-time">1–3 semanas</span>
+      </div>
+    </div>
+
+    <div class="servicio-card animate-fade">
+      <span class="servicio-num">04</span>
+      <span class="servicio-badge">Documentación</span>
+      <h3 class="servicio-name">SOPs & Documentación<br>ISO 9001</h3>
+      <p class="servicio-desc">Si el proceso solo existe en la cabeza de alguien, tu empresa tiene un punto de falla crítico. Documentamos cada proceso operativo bajo estándar ISO 9001 — para que la empresa funcione sin depender de personas específicas.</p>
+      <div class="servicio-details">
+        <span class="servicio-detail">Levantamiento y escritura de SOPs por área</span>
+        <span class="servicio-detail">Manuales operativos por rol y departamento</span>
+        <span class="servicio-detail">Estructura documental bajo ISO 9001</span>
+        <span class="servicio-detail">Base de conocimiento accesible para todo el equipo</span>
+      </div>
+      <div class="servicio-footer">
+        <span class="servicio-time">2–5 semanas</span>
+      </div>
+    </div>
+
+    <div class="servicio-card animate-fade">
+      <span class="servicio-num">05</span>
+      <span class="servicio-badge">Sistemas IA</span>
+      <h3 class="servicio-name">Agentes IA & <br>Automatización con LLM</h3>
+      <p class="servicio-desc">Agentes conversacionales listos para producción (WhatsApp, soporte, captación de leads) y workflows con IA — construidos sobre mi propia plataforma Lex Operational Agents, del lenguaje natural al deploy en n8n.</p>
+      <div class="servicio-details">
+        <span class="servicio-detail">Agente conversacional con LLM (Claude / ChatGPT) + RAG</span>
+        <span class="servicio-detail">Blueprint técnico industrial + workflows n8n validados</span>
+        <span class="servicio-detail">Integraciones CRM / scheduling / storage / PDF / messaging</span>
+        <span class="servicio-detail">Entregable: sistema desplegado en n8n (cloud o self-hosted)</span>
+      </div>
+      <div class="servicio-footer">
+        <span class="servicio-time">1–3 semanas</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROYECTOS PROPIOS -->
+<style>
+  #proyectos .proy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+  #proyectos .proy-card{position:relative;border:1px solid var(--border);background:var(--bg2);padding:2rem;display:flex;flex-direction:column;gap:0.9rem;transition:border-color .3s;}
+  #proyectos .proy-card:hover{border-color:var(--border-strong);}
+  #proyectos .proy-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  #proyectos .proy-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;color:var(--white);line-height:1.1;}
+  #proyectos .proy-kind{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-light);margin-top:.4rem;}
+  #proyectos .proy-tag{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:.28rem .55rem;white-space:nowrap;font-weight:500;}
+  #proyectos .proy-tag.dev{background:var(--accent);color:var(--white);}
+  #proyectos .proy-tag.beta{background:var(--gold-dim);color:var(--cream);}
+  #proyectos .proy-desc{color:var(--cream-dim);font-size:0.88rem;line-height:1.55;}
+  #proyectos .proy-points{list-style:none;display:flex;flex-direction:column;gap:.45rem;}
+  #proyectos .proy-points li{position:relative;padding-left:1rem;color:var(--cream);font-size:0.8rem;line-height:1.45;}
+  #proyectos .proy-points li::before{content:'';position:absolute;left:0;top:.5em;width:5px;height:5px;background:var(--gold);transform:rotate(45deg);}
+  #proyectos .proy-stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:.6rem;}
+  #proyectos .proy-chip{font-family:'DM Mono',monospace;font-size:0.64rem;color:var(--cream-dim);border:1px solid var(--border);padding:.2rem .5rem;}
+</style>
+<section id="proyectos">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div class="section-info">
+      <p class="section-tag">Construido por mí</p>
+      <h2 class="section-title">Proyectos<br>propios</h2>
+    </div>
+  </div>
+  <div class="proy-grid">
+
+    <div class="proy-card animate-fade">
+      <div class="proy-top">
+        <div>
+          <div class="proy-name">Lex Operational Agents</div>
+          <div class="proy-kind">Plataforma · Agentes IA (MCP)</div>
+        </div>
+        <span class="proy-tag">Facturando</span>
+      </div>
+      <p class="proy-desc">Plataforma industrial que va del lenguaje natural al deploy en n8n. Servidor MCP con 13 herramientas, 51 adapters y 1.505 nodos n8n. Disciplina de release Six Sigma 6.0σ.</p>
+      <ul class="proy-points">
+        <li>Caso desplegado y facturado: agente de WhatsApp para <strong>Indalo Water</strong> (Panamá) — califica leads por geolocalización, genera reportes PDF y agenda visitas. ~80 leads/hora, cero rollback.</li>
+        <li>Motor de blueprints: convierte una intención de negocio en un spec técnico de 17 secciones. Con él nació mi asesoría con <strong>Morpheus LATAM</strong>.</li>
+      </ul>
+      <div class="proy-stack">
+        <span class="proy-chip">MCP</span><span class="proy-chip">n8n</span><span class="proy-chip">Claude</span><span class="proy-chip">Supabase</span><span class="proy-chip">Cloudflare R2</span><span class="proy-chip">Python</span>
+      </div>
+    </div>
+
+    <div class="proy-card animate-fade">
+      <div class="proy-top">
+        <div>
+          <div class="proy-name">Lector Lex</div>
+          <div class="proy-kind">SaaS · Audiolibros con IA</div>
+        </div>
+        <span class="proy-tag beta">Beta / MVP</span>
+      </div>
+      <p class="proy-desc">Convierte PDF/EPUB en audiolibros MP3 con ~190 voces neurales y karaoke sincronizado, más una biblioteca de notas con citas cruzadas entre tus libros.</p>
+      <ul class="proy-points">
+        <li>Arquitectura híbrida: un core Python puro alimenta la app local (Streamlit) y la plataforma cloud (Next.js 14 + FastAPI). 169/169 tests PASS.</li>
+        <li>Freemium con 5 tiers (Stripe), storage en R2 y autenticación con Supabase.</li>
+      </ul>
+      <div class="proy-stack">
+        <span class="proy-chip">Python</span><span class="proy-chip">Next.js 14</span><span class="proy-chip">FastAPI</span><span class="proy-chip">Edge TTS</span><span class="proy-chip">Stripe</span>
+      </div>
+    </div>
+
+    <div class="proy-card animate-fade">
+      <div class="proy-top">
+        <div>
+          <div class="proy-name">Player's Stats</div>
+          <div class="proy-kind">App móvil · Desarrollo personal</div>
+        </div>
+        <span class="proy-tag dev">En desarrollo</span>
+      </div>
+      <p class="proy-desc">App que convierte las metas reales de vida en una progresión tipo videojuego: mecánica de simulador con estética de lobby. Un avatar 3D evoluciona solo con logros reales validados.</p>
+      <ul class="proy-points">
+        <li>Motor de desglose de metas en cascada con regex + plantillas: $0 de costo de IA por usuario en runtime.</li>
+        <li>Stack: Expo + React Native (TypeScript), Zustand, local-first, avatar 3D con three.js. iOS + Android.</li>
+      </ul>
+      <div class="proy-stack">
+        <span class="proy-chip">React Native</span><span class="proy-chip">Expo</span><span class="proy-chip">TypeScript</span><span class="proy-chip">three.js</span><span class="proy-chip">SQLite</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CASOS DE ÉXITO -->
+<section id="caso">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div class="section-info">
+      <p class="section-tag">Resultados reales con clientes reales</p>
+      <h2 class="section-title">Casos de<br>éxito</h2>
+    </div>
+  </div>
+
+  <!-- CASO 1: Impact Heroes -->
+  <div class="caso-wrapper animate-fade">
+    <div>
+      <p class="caso-label">Caso 01 · Agencia Internacional</p>
+      <h3 class="caso-empresa">Impact Heroes</h3>
+      <p class="caso-industria">Estrategia Operativa para Escala Masiva · USA · High-Ticket Marketing</p>
+
+      <div class="caso-resultados">
+        <div class="resultado">
+          <span class="resultado-val">$100k</span>
+          <span class="resultado-label">Generado en año 1</span>
+        </div>
+        <div class="resultado">
+          <span class="resultado-val">50+</span>
+          <span class="resultado-label">Personas coordinadas</span>
+        </div>
+        <div class="resultado">
+          <span class="resultado-val">4</span>
+          <span class="resultado-label">Departamentos construidos</span>
+        </div>
+        <div class="resultado">
+          <span class="resultado-val">200+</span>
+          <span class="resultado-label">Publicaciones con trazabilidad</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="caso-right">
+      <div class="caso-section">
+        <p class="caso-section-title">El reto</p>
+        <ul class="caso-list">
+          <li>Agencia de marketing digital en lanzamiento, sin estructura interna ni procesos definidos para manejar un volumen de clientes de alto perfil.</li>
+          <li>Equipo creciendo rápido sin roles claros ni sistemas de control de calidad.</li>
+          <li>Necesidad de operar como agencia de autoridad ante clientes acostumbrados a estándares corporativos.</li>
+        </ul>
+      </div>
+
+      <div class="caso-section">
+        <p class="caso-section-title">Lo que construí</p>
+        <ul class="caso-list">
+          <li>Construí desde cero los departamentos de Research, Data, Community Management y Gerencia — siendo parte de cada uno primero, luego sistematizando y delegando.</li>
+          <li>Diseñé automatizaciones con rendimiento operativo del 100% que escalaron la capacidad sin incrementar costos fijos.</li>
+          <li>Dirigí proyecto de distribución de contenido con publicaciones en más de 200 sitios web con trazabilidad completa por cliente.</li>
+          <li>Apliqué la estrategia Dream 100 de Russell Brunson para prospección de clientes top tier del mercado americano.</li>
+        </ul>
+      </div>
+
+      <div class="caso-section">
+        <p class="caso-section-title">Clientes atendidos</p>
+        <ul class="caso-list">
+          <li>Kevin David, Jeff Lerner, Jake Nicks, Paul Getter, Daven Michaels, James Nielson, Rigoberto Acosta, Mark Bowness, Tracey Walker, Trent Dyrsmid y otros referentes del marketing digital americano.</li>
+        </ul>
+      </div>
+
+      <div class="caso-section">
+        <p class="caso-section-title">Fundador</p>
+        <ul class="caso-list">
+          <li>
+            <strong style="color: var(--gold-light);">Joe Cury</strong> — CEO y fundador de Impact Heroes.
+            <a href="https://www.instagram.com/davincygang/" target="_blank" rel="noopener"
+               style="color: var(--gold); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid var(--gold-dim); padding-bottom: 1px; margin-left: 0.5rem; white-space: nowrap;">
+              @davincygang →
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="caso-resultado-text">
+        Gestión de infraestructura técnica para un ecosistema de marketing de 7 cifras. Control de flujos de datos, automatización de embudos de venta y operaciones de contenido para referentes globales del sector.
+      </div>
+    </div>
+  </div>
+
+  <!-- CASO 2: Indalo Water -->
+  <div class="caso-wrapper animate-fade">
+    <div>
+      <p class="caso-label">Caso 02 · Escalabilidad Internacional</p>
+      <div style="text-align:center; margin-bottom: 1.5rem; padding: 1.5rem; border: 1px solid var(--border); background: rgba(255,255,255,0.03);">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLygksw5M8BmhXshGotgU6-V7iqQMzLS2vgQ&s"
+          alt="Indalo Water"
+          style="max-width: 100%; width: 200px; height: auto; display: block; margin: 0 auto; object-fit: contain;"
+        />
+      </div>
+      <h3 class="caso-empresa" style="font-size: 1.5rem; margin-bottom: 0.3rem; color: var(--gold-light);">indalowater.com</h3>
+      <p class="caso-industria">Ingeniería de Procesos e Infraestructura Hídrica · USA · España · Venezuela · Panamá</p>
+
+      <div class="caso-resultados">
+        <div class="resultado">
+          <span class="resultado-val">4</span>
+          <span class="resultado-label">Sistemas BI completos</span>
+        </div>
+        <div class="resultado">
+          <span class="resultado-val">90</span>
+          <span class="resultado-label">KPIs en tiempo real</span>
+        </div>
+        <div class="resultado">
+          <span class="resultado-val">80%</span>
+          <span class="resultado-label">Reducción trabajo manual</span>
+        </div>
+        <div class="resultado">
+          <span class="resultado-val">4</span>
+          <span class="resultado-label">Países sincronizados</span>
+        </div>
+      </div>
+
+      <!-- KPI Screenshots -->
+      <div class="kpi-strip">
+        <img
+          src="https://drive.google.com/thumbnail?id=1B4tBv2WfkDEHdssvPEMmZeyvVEoFDVKd&sz=w400"
+          alt="Dashboard KPIs Indalo Water"
+          class="kpi-img"
+          title="Dashboard de KPIs — Indalo Water"
+        />
+        <img
+          src="https://drive.google.com/thumbnail?id=1XimRD1B_s9LqM57XsDHqmRfujCpT9rDH&sz=w400"
+          alt="Métricas operativas Indalo Water"
+          class="kpi-img"
+          title="Métricas operativas — Indalo Water"
+        />
+        <img
+          src="https://drive.google.com/thumbnail?id=1_bdhHKI5UWuXQKcRkqSqRH4CkbClLNzs&sz=w400"
+          alt="KPIs comerciales Indalo Water"
+          class="kpi-img"
+          title="KPIs comerciales — Indalo Water"
+        />
+        <img
+          src="https://drive.google.com/thumbnail?id=1bvh4WZ-ZRm_ME1EOGEcDKxSvVIV9Yr7Y&sz=w400"
+          alt="Reportes automatizados Indalo Water"
+          class="kpi-img"
+          title="Reportes automatizados — Indalo Water"
+        />
+      </div>
+    </div>
+
+    <div class="caso-right">
+      <div class="caso-section">
+        <p class="caso-section-title">El reto</p>
+        <ul class="caso-list">
+          <li>Empresa de agua purificada operando en 4 países con equipos desconectados entre sí. Sin visibilidad centralizada de operaciones ni métricas unificadas.</li>
+          <li>Reportes manuales que consumían horas semanales de los gerentes de cada país.</li>
+          <li>Imposible escalar sin saber en tiempo real qué pasaba en cada operación.</li>
+        </ul>
+      </div>
+
+      <div class="caso-section">
+        <p class="caso-section-title">Lo que construí</p>
+        <ul class="caso-list">
+          <li>Diseñé e implementé un sistema de Business Intelligence con 90 KPIs en tiempo real para las 4 operaciones simultáneamente.</li>
+          <li>Conecté y unificé todas las fuentes de datos de los 4 países en un sistema de reportería automática.</li>
+          <li>Eliminé el 80% del trabajo manual de reportes — lo que antes tomaba horas ahora se genera automáticamente.</li>
+          <li>Documenté todos los procesos bajo ISO 9001, dejando el sistema completamente independiente de mi presencia.</li>
+          <li>Implementé sistema de referidos con ReferralCandy integrado al CRM, optimizando la adquisición de clientes en cada mercado.</li>
+        </ul>
+      </div>
+
+      <div class="caso-resultado-text">
+        Transición de gestión manual a gobernanza digital completa. 6 sistemas automatizados, 24 manuales ISO 9001 y visibilidad total en 4 países — la empresa opera ahora con supervisión mínima del fundador.
+      </div>
+
+      <div class="caso-resultado-text" style="border-left:2px solid var(--gold);padding-left:1rem;background:rgba(201,168,76,0.06);">
+        <strong style="color:var(--gold-light);">Y después:</strong> ya como creador independiente, Indalo Water me contrató como cliente de mi plataforma <strong>Lex Operational Agents</strong> para desplegar un agente de WhatsApp que califica leads por geolocalización y agenda visitas (ver <a href="#proyectos" style="color:var(--gold-light);">Proyectos</a>).
+      </div>
+    </div>
+  </div>
+
+  <!-- CASO 3: Megret Solutions -->
+  <div class="caso-wrapper animate-fade">
+    <div>
+      <p class="caso-label">Caso 03 · Transformación Legal-Digital</p>
+      <div style="text-align:center; margin-bottom: 1.5rem; padding: 1.25rem; border: 1px solid var(--border); background: rgba(255,255,255,0.03);">
+        <img
+          src="https://scontent-mia5-1.xx.fbcdn.net/v/t39.30808-6/326037026_3368348443376826_1685125395406307562_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=0FZ1GpxlG8IQ7kNvwFut2yY&_nc_oc=Adn63C2c6TjXz0E-y0D-QNeQInEKyuB27YIoiQoMqqK1m7Vsb6_pT0O0kuCw0BLc0eoZqOlcEsfb-qPRV3whI-z_&_nc_zt=23&_nc_ht=scontent-mia5-1.xx&_nc_gid=E35KHrAmFz_YIEfR2_mK2w&oh=00_AfvPYqPYzeO0fZAfen8WW9fgqtp1dcji3O25cUeCgq-XoQ&oe=69A6F167"
+          alt="Megret Solutions"
+          style="max-width: 100%; width: 180px; height: auto; display: block; margin: 0 auto; object-fit: contain; border-radius: 4px;"
+          onerror="this.style.display='none'"
+        />
+      </div>
+      <h3 class="caso-empresa">Megret<br>Solutions</h3>
+      <p class="caso-industria" style="margin-top: 0.5rem;">Optimización de Operaciones Legales Internacionales · USA · megretsolutions.com</p>
+
+      <div class="caso-resultados">
+        <div class="resultado">
+          <span class="resultado-val">24</span>
+          <span class="resultado-label">SOPs documentados</span>
+        </div>
+        <div class="resultado">
+          <span class="resultado-val">GHL</span>
+          <span class="resultado-label">CRM implementado</span>
+        </div>
+        <div class="resultado">
+          <span class="resultado-val">100%</span>
+          <span class="resultado-label">Procesos digitalizados</span>
+        </div>
+        <div class="resultado">
+          <span class="resultado-val">↑</span>
+          <span class="resultado-label">Conversión de leads</span>
+        </div>
+      </div>
+
+      <!-- TikTok social proof -->
+      <div class="tiktok-proof">
+        <div class="tiktok-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17V4l9-1.5v11"/><circle cx="6.5" cy="17" r="2.5"/><circle cx="15.5" cy="15" r="2.5"/></svg></div>
+        <div class="tiktok-text">
+          <p class="tiktok-handle">@lareinadelostaxes</p>
+          <p class="tiktok-desc">Presencia activa · Autoridad digital en servicios de inmigración y taxes</p>
+        </div>
+        <a href="https://www.tiktok.com/@lareinadelostaxes" target="_blank" class="tiktok-link">Ver perfil →</a>
+      </div>
+    </div>
+
+    <div class="caso-right">
+      <div class="caso-section">
+        <p class="caso-section-title">El reto</p>
+        <ul class="caso-list">
+          <li>Firma de servicios de inmigración y asesoría legal en USA sin CRM ni sistema de seguimiento de clientes. Los leads se perdían en conversaciones de WhatsApp y correo.</li>
+          <li>Procesos completamente informales: sin SOPs, sin manuales, sin documentación de ningún tipo.</li>
+          <li>Sin posibilidad de escalar sin riesgo de pérdida de calidad y clientes.</li>
+        </ul>
+      </div>
+
+      <div class="caso-section">
+        <p class="caso-section-title">Lo que construí</p>
+        <ul class="caso-list">
+          <li>Implementé GoHighLevel como CRM central — pipelines de ventas, automatizaciones de seguimiento, recordatorios automáticos y gestión de citas.</li>
+          <li>Documenté 24 SOPs cubriendo cada proceso del negocio: desde la captación del lead hasta el cierre y la entrega del servicio.</li>
+          <li>Creé manuales operativos completos que permitieron onboardear nuevo personal sin intervención directa del fundador.</li>
+          <li>Diseñé flujos de nurturing automático para leads que no cerraban de inmediato, aumentando la tasa de conversión a mediano plazo.</li>
+        </ul>
+      </div>
+
+      <div class="caso-resultado-text">
+        Estructuración de flujos de trabajo para gestión de casos internacionales. Sistemas de seguimiento de compliance, estandarización de procedimientos administrativos críticos y operación sin dependencia del fundador.
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- PRESENCIA EN MEDIOS -->
+<section id="medios">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div class="section-info">
+      <p class="section-tag">Distribución de contenido · Alcance internacional</p>
+      <h2 class="section-title">Presencia<br>en medios</h2>
+    </div>
+  </div>
+  <div class="medios-grid">
+    <div class="medios-left animate-fade">
+      <h3 class="medios-headline">
+        Más de <strong>200 publicaciones digitales</strong> en medios internacionales. Construido con sistema, no con suerte.
+      </h3>
+      <p class="medios-body">
+        Durante la etapa en Impact Heroes, desarrollé e implementé un sistema de distribución de contenido a escala que logró publicaciones en más de 200 sitios de medios digitales a nivel internacional. No fue una campaña puntual — fue infraestructura replicable con trazabilidad completa por cliente y por publicación.<br><br>
+        Cada pieza de contenido generada para los clientes de la agencia fue amplificada a través de redes de medios verificados, con control de calidad en cada etapa del proceso. El resultado: autoridad mediática construida de forma sistemática para marcas personales y empresariales en el mercado americano.
+      </p>
+      <div class="medios-stat-row">
+        <div class="medios-stat">
+          <span class="medios-stat-num">200+</span>
+          <span class="medios-stat-label">Sitios publicados</span>
+        </div>
+        <div class="medios-stat">
+          <span class="medios-stat-num">USA</span>
+          <span class="medios-stat-label">Mercado principal</span>
+        </div>
+        <div class="medios-stat">
+          <span class="medios-stat-num">100%</span>
+          <span class="medios-stat-label">Trazabilidad por cliente</span>
+        </div>
+      </div>
+      <div class="medios-logos-strip" style="margin-top: 2rem;">
+        <span class="medio-badge">Yahoo Finance</span>
+        <span class="medio-badge">AP News</span>
+        <span class="medio-badge">Business Insider</span>
+        <span class="medio-badge">Benzinga</span>
+        <span class="medio-badge">Digital Journal</span>
+        <span class="medio-badge">Bloomberg Wire</span>
+        <span class="medio-badge">+ 194 más</span>
+      </div>
+    </div>
+    <div class="medios-right animate-fade">
+      <div class="medios-img-wrap">
+        <img
+          src="https://miro.medium.com/1*UUx83zArnXnqlMb0fJq2NA.jpeg"
+          alt="Presencia en medios digitales internacionales — Impact Heroes"
+          class="medios-img"
+          onerror="this.style.opacity='0.3'"
+        />
+        <p class="medios-img-caption">Sistema de distribución · 200+ sitios verificados · Mercado americano</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEALERS AUTOMOTRICES -->
+<section id="dealers">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div class="section-info">
+      <p class="section-tag">Sector automotriz · USA · Marketplaces</p>
+      <h2 class="section-title">Sistemas de ventas<br>para dealers</h2>
+    </div>
+  </div>
+
+  <p class="dealers-intro animate-fade">
+    En el sector automotriz, la diferencia entre un dealer que vende y uno que no no está en el inventario —
+    está en <strong>cómo está organizado el equipo de ventas</strong> y qué tan bien opera en los marketplaces donde los compradores ya están buscando.<br><br>
+    Construí sistemas de ventas completos con equipos humanos estructurados en plataformas como Cars.com, CarGurus, AutoTrader y Facebook Marketplace — no campañas aisladas, sino operaciones de seguimiento, respuesta y cierre que funcionaban como una máquina.
+  </p>
+
+  <div class="dealers-grid">
+
+    <!-- Brooklyn Volkswagen -->
+    <div class="dealer-card animate-fade">
+      <div class="dealer-img-wrap">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Volkswagen_logo_2019.svg/320px-Volkswagen_logo_2019.svg.png"
+          alt="Brooklyn Volkswagen"
+          class="dealer-img"
+          style="object-fit: contain; padding: 2.5rem; background: #1a1a18;"
+          onerror="this.parentElement.innerHTML='<div class=\'dealer-logo-fallback\'><span>VW</span></div>'"
+        />
+        <div class="dealer-img-overlay"></div>
+        <span class="dealer-tag-over">Brooklyn · New York</span>
+      </div>
+      <div class="dealer-body">
+        <h3 class="dealer-name">Brooklyn Volkswagen</h3>
+        <p class="dealer-location">5226 Kings Hwy · Brooklyn, NY 11234</p>
+        <p class="dealer-desc">
+          Dealer de nueva y pre-owned en Brooklyn. Implementé un sistema de respuesta a leads de marketplace con tiempos de primer contacto reducidos a menos de 5 minutos, equipo de vendedores con protocolos documentados de seguimiento y scripts de cierre adaptados al perfil del comprador de Nueva York.
+        </p>
+        <div class="dealer-tags">
+          <span class="dealer-tag">Marketplace leads</span>
+          <span class="dealer-tag">Equipo de ventas</span>
+          <span class="dealer-tag">Protocolos de cierre</span>
+          <span class="dealer-tag">VW · Pre-owned</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 Star Auto Sales -->
+    <div class="dealer-card animate-fade">
+      <div class="dealer-img-wrap">
+        <img
+          src="https://www.5starautosales.com/Dealer-Websites/5-Star-Auto-Sales-Inc-NY/images/logo.png"
+          alt="5 Star Auto Sales"
+          class="dealer-img"
+          style="object-fit: contain; padding: 2rem; background: #1a1a18;"
+          onerror="this.parentElement.innerHTML='<div class=\'dealer-logo-fallback\'><span>5★</span></div>'"
+        />
+        <div class="dealer-img-overlay"></div>
+        <span class="dealer-tag-over">East Meadow · New York</span>
+      </div>
+      <div class="dealer-body">
+        <h3 class="dealer-name">5 Star Auto Sales</h3>
+        <p class="dealer-location">680 Newbridge Rd · East Meadow, NY 11554</p>
+        <p class="dealer-desc">
+          Dealer multi-marca en Nassau County con inventario amplio de pre-owned. Diseñé el sistema de gestión de leads en múltiples marketplaces simultáneos, con asignación automática por vendedor, seguimiento en CRM y métricas de conversión por fuente de tráfico.
+        </p>
+        <div class="dealer-tags">
+          <span class="dealer-tag">Multi-marketplace</span>
+          <span class="dealer-tag">CRM leads</span>
+          <span class="dealer-tag">Nassau County NY</span>
+          <span class="dealer-tag">Métricas por fuente</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Platinum Collection PB -->
+    <div class="dealer-card animate-fade">
+      <div class="dealer-img-wrap">
+        <img
+          src="https://platinumcollectionpb.com/wp-content/uploads/2023/11/Untitled-1-copy.png"
+          alt="Platinum Collection PB"
+          class="dealer-img"
+          style="object-fit: contain; padding: 2rem; background: #0f0f0d;"
+          onerror="this.parentElement.innerHTML='<div class=\'dealer-logo-fallback\'><span>PLATINUM</span></div>'"
+        />
+        <div class="dealer-img-overlay"></div>
+        <span class="dealer-tag-over">Delray Beach · Florida</span>
+      </div>
+      <div class="dealer-body">
+        <h3 class="dealer-name">Platinum Collection PB</h3>
+        <p class="dealer-location">975 S Congress Ave · Delray Beach, FL 33445</p>
+        <p class="dealer-desc">
+          Dealer de exóticos y vehículos de lujo en South Florida: Lamborghini, Rolls-Royce, Porsche, Mercedes-Benz. Construí el sistema de ventas para un perfil de comprador de alto valor — procesos de cualificación de lead, presentación de inventario exclusivo y seguimiento personalizado por vendedor senior.
+        </p>
+        <div class="dealer-tags">
+          <span class="dealer-tag">Lujo · Exóticos</span>
+          <span class="dealer-tag">High-ticket sales</span>
+          <span class="dealer-tag">South Florida</span>
+          <span class="dealer-tag">Lead qualification</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1Drive -->
+    <div class="dealer-card animate-fade">
+      <div class="dealer-img-wrap">
+        <div class="dealer-logo-fallback" style="background: linear-gradient(135deg, #0f1a0f 0%, #0a0a08 100%);">
+          <span style="font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em;">1DRIVE</span>
+        </div>
+        <div class="dealer-img-overlay"></div>
+        <span class="dealer-tag-over">Hollywood · Florida</span>
+      </div>
+      <div class="dealer-body">
+        <h3 class="dealer-name">1Drive</h3>
+        <p class="dealer-location">Hollywood, FL · 1drive.us</p>
+        <p class="dealer-desc">
+          Dealer multi-marca en South Florida con enfoque en financiamiento flexible para compradores de diversas situaciones crediticias. Implementé protocolos de respuesta en marketplace con equipos de ventas bilingües, flujos de seguimiento automatizados y sistemas de cierre adaptados al proceso de aprobación de crédito.
+        </p>
+        <div class="dealer-tags">
+          <span class="dealer-tag">Bilingüe EN/ES</span>
+          <span class="dealer-tag">Financiamiento</span>
+          <span class="dealer-tag">Hollywood FL</span>
+          <span class="dealer-tag">Seguimiento automatizado</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VENTAJAS COMPETITIVAS -->
+<section id="ventajas">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <div class="section-info">
+      <p class="section-tag">Por qué trabajar con Moisés</p>
+      <h2 class="section-title">Lo que me<br>diferencia</h2>
+    </div>
+  </div>
+  <div class="ventajas-grid">
+    <div class="ventaja animate-fade">
+      <span class="ventaja-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.4 2.5 15.6 0 18M12 3c-2.5 2.4-2.5 15.6 0 18"/></svg></span>
+      <p class="ventaja-title">Estándares de USA a precio regional</p>
+      <p class="ventaja-desc">Construí sistemas para empresas americanas que operan bajo los estándares más exigentes del mercado. Obtienes ese nivel de ejecución a una fracción del costo que pagarías en USA.</p>
+    </div>
+    <div class="ventaja animate-fade">
+      <span class="ventaja-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.4"/><circle cx="12" cy="4" r="1.5"/><circle cx="12" cy="20" r="1.5"/><circle cx="4" cy="12" r="1.5"/><circle cx="20" cy="12" r="1.5"/><path d="M12 6.4v3.2M12 14.4v4.1M6.4 12h3.2M14.4 12h4.1"/></svg></span>
+      <p class="ventaja-title">Un solo profesional, visión completa</p>
+      <p class="ventaja-desc">No necesitas contratar un analista de datos, un automatizador, un consultor ISO y un especialista en CRM por separado. Entiendo todo el ecosistema y sé cómo hacer que cada pieza trabaje en conjunto.</p>
+    </div>
+    <div class="ventaja animate-fade">
+      <span class="ventaja-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5a3 3 0 0 1 0 6"/><path d="M17 14.6A5.5 5.5 0 0 1 20.5 20"/></svg></span>
+      <p class="ventaja-title">Los sistemas incluyen a las personas</p>
+      <p class="ventaja-desc">Un proceso documentado que nadie sigue no sirve de nada. Diseño los sistemas pensando en quién los va a operar: capacito al equipo y aseguro que la adopción sea real, no cosmética.</p>
+    </div>
+    <div class="ventaja animate-fade">
+      <span class="ventaja-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg></span>
+      <p class="ventaja-title">Entregables que te pertenecen</p>
+      <p class="ventaja-desc">Todo lo que construyo queda documentado bajo ISO 9001 y te pertenece completamente. No hay dependencia de mi presencia. Cuando termina el proyecto, tú tienes el sistema y el conocimiento.</p>
+    </div>
+    <div class="ventaja animate-fade">
+      <span class="ventaja-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
+      <p class="ventaja-title">Me adapto a tu industria en días</p>
+      <p class="ventaja-desc">He operado en distribución de agua, servicios legales, marketing digital, manufactura, turismo y tecnología. En 3 días entiendo tus procesos específicos mediante análisis directo. No aplico plantillas genéricas.</p>
+    </div>
+    <div class="ventaja animate-fade">
+      <span class="ventaja-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></span>
+      <p class="ventaja-title">Resultados medibles o no hay trato</p>
+      <p class="ventaja-desc">Cada proyecto arranca con métricas base y termina con resultados documentados: horas ahorradas, procesos automatizados, KPIs activos. Puedes medir exactamente lo que obtuviste.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HERRAMIENTAS -->
+<section id="herramientas">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <div class="section-info">
+      <p class="section-tag">Stack tecnológico</p>
+      <h2 class="section-title">Herramientas<br>que domino</h2>
+    </div>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-group animate-fade">
+      <p class="tool-group-title">IA & Desarrollo</p>
+      <ul class="tool-list">
+        <li>Servidores MCP</li>
+        <li>Agentes LLM (Claude, ChatGPT)</li>
+        <li>Blueprint & prompt engineering</li>
+        <li>RAG / vector stores</li>
+        <li>Python · FastAPI</li>
+        <li>Next.js 14 · React Native / Expo</li>
+      </ul>
+    </div>
+    <div class="tool-group animate-fade">
+      <p class="tool-group-title">Automatización & Cloud</p>
+      <ul class="tool-list">
+        <li>n8n</li>
+        <li>Make.com (Integromat)</li>
+        <li>Zapier</li>
+        <li>Supabase · Cloudflare R2 · Redis</li>
+        <li>Web scraping · APIs e integraciones</li>
+        <li>Python (scripts)</li>
+      </ul>
+    </div>
+    <div class="tool-group animate-fade">
+      <p class="tool-group-title">BI & Analytics</p>
+      <ul class="tool-list">
+        <li>Google Looker Studio</li>
+        <li>Microsoft Excel avanzado</li>
+        <li>Google Sheets avanzado</li>
+        <li>Modelado de datos</li>
+        <li>KPI frameworks</li>
+        <li>SQL básico</li>
+      </ul>
+    </div>
+    <div class="tool-group animate-fade">
+      <p class="tool-group-title">CRM & Marketing</p>
+      <ul class="tool-list">
+        <li>GoHighLevel</li>
+        <li>Clientify</li>
+        <li>Monday.com</li>
+        <li>ReferralCandy</li>
+        <li>Meta Ads</li>
+        <li>Email marketing automation</li>
+      </ul>
+    </div>
+    <div class="tool-group animate-fade">
+      <p class="tool-group-title">Gestión & Docs</p>
+      <ul class="tool-list">
+        <li>ISO 9001 (documentación)</li>
+        <li>Agile / Scrum / Kanban · Six Sigma</li>
+        <li>Notion / Trello / Asana</li>
+        <li>Gamma (presentaciones)</li>
+        <li>HTML5 & CSS3</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTE IDEAL -->
+<section id="cliente">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <div class="section-info">
+      <p class="section-tag">¿Trabajamos juntos?</p>
+      <h2 class="section-title">Tu empresa<br>es ideal si…</h2>
+    </div>
+  </div>
+  <div class="cliente-grid">
+    <div class="cliente-visual">
+      <div class="cliente-circle">
+        <div class="cliente-center">
+          <span class="cliente-center-num">3–100</span>
+          <span class="cliente-center-label">empleados</span>
+        </div>
+      </div>
+    </div>
+    <div class="cliente-criteria">
+      <div class="criterio animate-fade">
+        <div class="criterio-check">✓</div>
+        <div class="criterio-text">
+          <strong>Tienes entre 3 y 100 empleados</strong>
+          Ya pasaste la fase de validación. Tienes clientes, tienes equipo — pero la infraestructura interna no creció al mismo ritmo que las ventas.
+        </div>
+      </div>
+      <div class="criterio animate-fade">
+        <div class="criterio-check">✓</div>
+        <div class="criterio-text">
+          <strong>El fundador sigue en el día a día operativo</strong>
+          Resuelves demasiadas cosas personalmente porque el sistema no existe para hacerlo solo. Eso es lo que vamos a cambiar.
+        </div>
+      </div>
+      <div class="criterio animate-fade">
+        <div class="criterio-check">✓</div>
+        <div class="criterio-text">
+          <strong>No tienes visibilidad real de tu negocio</strong>
+          Sin un dashboard de KPIs, tomas decisiones por intuición. Con uno, tomas decisiones con datos — y eso cambia el nivel de conversaciones con tu equipo e inversores.
+        </div>
+      </div>
+      <div class="criterio animate-fade">
+        <div class="criterio-check">✓</div>
+        <div class="criterio-text">
+          <strong>Quieres crecer sin contratar en masa</strong>
+          La automatización y los sistemas correctos te permiten escalar con el equipo que ya tienes. No necesitas 20 personas más — necesitas procesos que multipliquen a las que ya tienes.
+        </div>
+      </div>
+      <div class="criterio animate-fade">
+        <div class="criterio-check">✓</div>
+        <div class="criterio-text">
+          <strong>Cualquier industria, cualquier país</strong>
+          Distribución, servicios legales, manufactura, tecnología, turismo, salud, real estate — si tienes procesos, los puedo sistematizar. Venezuela, Latam, USA. 100% remoto.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <div class="section-info">
+      <p class="section-tag">Hablemos</p>
+      <h2 class="section-title">Trabajemos<br>juntos</h2>
+    </div>
+  </div>
+  <div class="contacto-inner">
+    <div class="contacto-left">
+      <h3 class="contacto-headline">¿Tu empresa está lista para <em>operar sin caos?</em></h3>
+      <p class="contacto-sub">
+        Agenda una llamada gratuita de 30 minutos directamente desde aquí. Identificamos tu principal cuello de botella operativo y te explico exactamente qué haría para resolverlo.
+      </p>
+      <div
+        class="calendly-inline-widget"
+        data-url="https://calendly.com/lex-moi-business/30min?hide_gdpr_banner=1&background_color=0a0a08&text_color=f0e8d5&primary_color=c9a84c"
+        style="min-width:280px; height:650px; border: 1px solid var(--border);"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    </div>
+    <div>
+      <div class="contacto-links">
+        <a href="/cdn-cgi/l/email-protection#dfb3baa7f1b2b0b6f1bdaaacb6b1baacac9fb8b2beb6b3f1bcb0b2" class="contacto-link">
+          <span class="link-label">Email</span>
+          <span><span class="__cf_email__" data-cfemail="19757c6137747670377b6c6a70777c6a6a597e74787075377a7674">[email&#160;protected]</span></span>
+        </a>
+        <a href="tel:+584242921942" class="contacto-link">
+          <span class="link-label">WhatsApp / Teléfono</span>
+          <span>+58 424 292 19 42</span>
+        </a>
+        <div class="contacto-link" style="cursor: default;">
+          <span class="link-label">Ubicación base</span>
+          <span>Caracas, Venezuela</span>
+        </div>
+        <div class="contacto-link" style="cursor: default;">
+          <span class="link-label">Mercados que atiendo</span>
+          <span>Venezuela · Latam · USA · España</span>
+        </div>
+        <div class="contacto-link" style="cursor: default;">
+          <span class="link-label">Idiomas</span>
+          <span>Español nativo · Inglés avanzado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Moisés Acevedo · Arquitecto de Operaciones</span>
+  <span class="footer-copy">© <span id="year">2026</span> · Todos los derechos reservados</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Auto year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Scroll animations - only activate if JS runs properly
+const animEls = document.querySelectorAll('.animate-fade');
+// Add js-loaded class to enable the hidden state (only when JS is running)
+animEls.forEach(el => el.classList.add('js-loaded'));
+
+const animObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.05 });
+
+animEls.forEach(el => animObserver.observe(el));
+
+// Active nav h
